@@ -18,12 +18,13 @@ class ProductsController extends Controller
 
     use ApiResponseTrait;
 
-    public function __construct()
-    {
-         $this->middleware('Admin',['except' => ['index']]);
-         $this->middleware('auth:sanctum');
+    // public function __construct()
+    // {
+    //      $this->middleware('Admin',['except' => ['index']]);
+    //      $this->middleware('auth:sanctum');
 
-    }
+    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +32,11 @@ class ProductsController extends Controller
      */
     public function index()
     {
+
+        // return $this->apiresponse(null,' المنتجات  بنجاح جلبناها لك',200);
+
         $product= products::paginate();
-    return $this->apiresponse($product,' المنتجات  بنجاح جلبناها لك',200);
+         return $this->apiresponse($product,' المنتجات  بنجاح جلبناها لك',200);
 
     }
 
@@ -139,6 +143,9 @@ class ProductsController extends Controller
      */
     public function update(Request $request,$id)
     {
+
+
+
             $validator = Validator::make($request->all(), [
             'name' => 'required|unique:products,name,max:255',
             'description' => 'max:255',
@@ -155,7 +162,7 @@ class ProductsController extends Controller
             $product->update($request->all());
 
              if($product){
-                return $this->apiresponse( $request,'تم تعديل المنتج بنجاح',201);
+                return $this->apiresponse( $product,'تم تعديل المنتج بنجاح',201);
 
              }
 

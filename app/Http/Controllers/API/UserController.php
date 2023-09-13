@@ -7,18 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\products;
-
-
-
 class UserController extends Controller
 {
 
     use ApiResponseTrait;
-    public function __construct()
-    {
-         $this->middleware('Admin',['except' => ['update']]);
-    }
 
     /**
      * Display a listing of the resource.
@@ -61,6 +53,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user =User::findorFail($id);
+        return $this->apiresponse($user,'تم جلب المستخدم بنجاح',200);
 
     }
 
@@ -72,10 +66,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return $this->apiresponse($id,'تم جلب المستخدم بنجاح',200);
 
-        $user =User::findorFail($id);
-        return $this->apiresponse($user,'تم جلب المستخدم بنجاح',200);
 
     }
 
@@ -93,7 +84,7 @@ class UserController extends Controller
         // ++++++++++++++++++
         $validator = Validator::make($request->all(), [
             'first' => 'required|unique:users,first|max:255',
-            'last' => 'unique:categories,name->ar|max:255',
+            'last' => 'max:255',
             'email' => 'unique:users,email',
             'phone' => 'max:13',
 

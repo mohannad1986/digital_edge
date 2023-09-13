@@ -25,7 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\RegisterController;
-// use App\Http\Controllers\API\VerifyEmailController;
+use App\Http\Controllers\API\VerifyEmailController;
 use App\Http\Controllers\API\EmailverificationController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductsController;
@@ -72,31 +72,34 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('email_verification_2',[App\Http\Controllers\API\EmailverificationController::class,'sendEmailVerification']);
 
 
-    // Route::resource('products', ProductController::class);
+
 });
 
+// Route::resource('product', ProductController::class);
 
-Route::resource('user', UserController::class);
-Route::resource('product', ProductsController::class);
+// Route::resource('user',[App\Http\Controllers\API\UserController::class]);
+Route::resource('product',ProductsController::class);
+Route::resource('user',UserController::class);
+
 
 // Route::resource('product', [App\Http\Controllers\API\ProductsController::class]);
 
-Route::get('producttest',[App\Http\Controllers\API\ProductsController::class,'index']);
+// Route::get('producttest',[App\Http\Controllers\API\ProductsController::class,'index']);
 Route::post('assign_product',[App\Http\Controllers\API\ProductsController::class,'assign_product']);
 
 Route::get('get_user_products/{id}',[App\Http\Controllers\API\ProductsController::class,'get_user_products']);
 
 
-Route::middleware('Admin')->group( function () {
+// Route::middleware('Admin')->group( function () {
 
 
 
 
-});
+// });
 
-Route::middleware('Emailverification')->group( function () {
-    Route::get('test_for_middlewar_emailverify',[App\Http\Controllers\API\UserController::class,'testformiddleware']);
+// Route::middleware('Emailverification')->group( function () {
+//     Route::get('test_for_middlewar_emailverify',[App\Http\Controllers\API\UserController::class,'testformiddleware']);
 
 
-});
+// });
 
