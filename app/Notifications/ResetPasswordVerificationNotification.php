@@ -28,8 +28,8 @@ class ResetPasswordVerificationNotification extends Notification
     {
         $this->message='use the below code for resetting your password';
         $this->subject='password reseting';
-        $this->formEmail='test@mohannad.com';
-        $this->mailer='smpt';
+        $this->formEmail='theproject@mohannad.com';
+        $this->mailer='smtp';
         $this->otp= new Otp ;
 
     }
@@ -56,7 +56,8 @@ class ResetPasswordVerificationNotification extends Notification
         $otp= $this->otp->generate($notifiable->email,6,60);
 
         return (new MailMessage)
-                    ->mailer('smpt')
+                    ->mailer('smtp')
+                    ->from($this->formEmail)
                     ->subject($this->subject)
                     ->greeting('hello'.$notifiable->first)
                     ->line($this->message)
