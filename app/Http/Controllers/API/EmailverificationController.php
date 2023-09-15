@@ -27,6 +27,8 @@ class EmailverificationController extends Controller
    public function sendEmailVerification (Request $request)
    {
     $request->user()->notify(new EmailverificationNotification());
+    $user= user::where('email',$request->email)->first();
+       $user->update(['email_verified_at'=>now()]);
 
     $success['success']=true;
     return response()->json($success,200);

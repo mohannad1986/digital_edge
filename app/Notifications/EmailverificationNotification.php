@@ -16,6 +16,8 @@ class EmailverificationNotification extends Notification
     public $mailer;
     private $otp;
 
+    public $header;
+
 
     /**
      * Create a new notification instance.
@@ -27,7 +29,8 @@ class EmailverificationNotification extends Notification
        $this->message='use the below code for verifiction';
        $this->subject='verifiction needed';
        $this->formEmail='test@mohannad.com';
-       $this->mailer='smpt';
+       $this->mailer='smtp';
+    //    $this->header='the header';
        $this->otp= new Otp ;
 
     }
@@ -53,7 +56,8 @@ class EmailverificationNotification extends Notification
     {
         $otp= $this->otp->generate($notifiable->email,4,60);
         return (new MailMessage)
-                    ->mailer('smpt')
+                    ->mailer('smtp')
+                    ->from($this->formEmail)
                     ->subject($this->subject)
                     ->greeting('hello'.$notifiable->first)
                     ->line($this->message)
